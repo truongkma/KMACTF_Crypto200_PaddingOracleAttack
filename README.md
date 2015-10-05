@@ -4,7 +4,9 @@ Bài crypto200 này làm team Gaara mình cực kì tiếc nuối luôn vì lẽ
 các bạn có thể tìm hiểu thêm về cơ chế của nó ở đây.
 
 <a href="http://www.exploresecurity.com/padding-oracle-decryption-attack/">PaddingOracle</a>
+Đề bài cho chúng ta 1 đoạn hex như sau <h2>0x25ec080ab01e28c41129491b5fd12abba5936cfd61e8d5dc6b6b6d121d2a71242185a46e5fa57e13978116bb3a41fad20391b4c23db04cebbcf1bad5acc659014dbe68df1de8b218688a304da14d4e5ac3513a88426e69cb5b6175f1a149eaf453e32ddb37ac74e319b873eaed1bb314</h2>
 
+và yêu cầu của thử thách là padding oracle với server 128.199.183.44:6996
 Đối với thử thách này chúng ta cần nắm rõ cơ chế mã hóa và giải mã của chế độ mã khối CBC. Thứ 2 là cần nắm rõ cơ chế checkpadding.
 
 1, Chế độ giải mã CBC như sau:
