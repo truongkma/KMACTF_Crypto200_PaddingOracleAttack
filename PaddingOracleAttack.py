@@ -8,6 +8,8 @@ c = ['a5936cfd61e8d5dc6b6b6d121d2a7124', '2185a46e5fa57e13978116bb3a41fad2',
      '0391b4c23db04cebbcf1bad5acc65901', '4dbe68df1de8b218688a304da14d4e5a',
      'c3513a88426e69cb5b6175f1a149eaf4', '53e32ddb37ac74e319b873eaed1bb314']
 full_iv = []
+
+
 def xored(a, b):
     hexxor = '10' * 16
     return hex(int(a, 16) ^ int(hexxor, 16) ^ int(b, 16))[2:-1].decode('hex')
@@ -19,7 +21,6 @@ def send_request(data):
     err = re.findall(r'\d+', kq)
     s.send("\n")
     return eval(err[0])
-
 print send_request(iv + c[0])
 for i in range(6):
     new_iv = ['00'] * 16
@@ -45,8 +46,7 @@ for i in range(6):
         else:
             j += 1
     full_iv.append(data)
-print full_iv
-
+s.close()
 a = []
 b = []
 for i in range(6):
