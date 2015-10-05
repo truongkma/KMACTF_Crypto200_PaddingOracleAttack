@@ -12,7 +12,7 @@ các bạn có thể tìm hiểu thêm về dạng tấn công này ở đây
 
 Đối với khối cipher đầu tiên, chúng ta sau khi giải mã xong cipher sẽ đem kết quả đó xor với IV. Trong thử thách này mã hóa AES 128bit nên IV bao gồm 128bit.
 
-Đối với những khối mã tiếp theo ta sẽ coi khối mã trước nó như là vector IV ở khối một để sau mỗi khi mã hóa xong chúng ta sẽ trước dụng khối mã trước đó để xor.
+Đối với những khối mã tiếp theo ta sẽ coi khối mã trước nó như là vector IV như ở khối một, để sau mỗi khi mã hóa xong chúng ta sẽ trước dụng khối mã trước đó để xor.
 
 2, Tiếp theo ta sẽ tìm hiểu về cơ chế checkpadding nhé.
 Thử thách cho ta 1 server dùng để checkpadding. Nếu padding đúng sẽ trả về mã lỗi 404, padding sai trả về mã lỗi 4
@@ -21,11 +21,11 @@ Thử thách cho ta 1 server dùng để checkpadding. Nếu padding đúng sẽ
 <a data-flickr-embed="true"  href="https://www.flickr.com/photos/135065266@N08/21962314675/in/datetaken/" title="Slide5"><img src="https://farm1.staticflickr.com/626/21962314675_bcb393d45b_z.jpg" width="640" height="480" alt="Slide5"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
 
 Như trên hình chúng ta thấy các giá trị: C là bản mã, INT là giá trị sau khi dùng khóa giải mã, IV là vector IV, P là bản rõ. Những giá trị mà ta biết là bản mã, và vector IV. Công việc ta cần giải quyết là tìm P dựa vào cơ chế padding.
-Vậy việc chúng ta cần phản làm là tìm đuợc INT và lấy INT xor với IV là ra đựoc khối rõ đầu tiên.
-Vậy làm như thế nào để ta có thể tìm lại được INT. Và muốn hiểu rõ hơn về padding thì cần phải tìm hiểu PKCS#5 và PKCS#7 nhé.
+Vậy việc chúng ta cần phải làm là tìm đuợc INT và lấy INT xor với IV là ra được khối rõ đầu tiên.
+Vậy làm như thế nào để ta có thể tìm lại được INT. Và muốn hiểu rõ hơn về padding thì cần phải tìm hiểu PKCS#5 và <a href = "https://en.wikipedia.org/wiki/Padding_%28cryptography%29#PKCS7">PKCS#7</a> nhé.
 
 Đây là các bước để mình kiểm tra padding nhé:
-- Bước đầu tiên ta sẽ gửi 1 đoạn 00000000000000000000000000000000a5936cfd61e8d5dc6b6b6d121d2a7124. nửa sau là khối mã đầu tiền, 16byte đầu là 1 vector IV giả định
+- Bước đầu tiên ta sẽ gửi 1 đoạn 00000000000000000000000000000000a5936cfd61e8d5dc6b6b6d121d2a7124. 16bytes đầu tiên là 1 vector IV giả định, 16bytes sau là khối cipher đầu tiên
 - khi đó server sẽ trả về cho chúng ta mã lỗi 403 vì padding sai. Vì sao. vì khi ta gửi đoạn kia lên server, server sẽ tách làm 2 nửa. Server sẽ thực hiện giải mã đoạn mã đầu tiên, như vậy coi như ta có thể biết đựoc giá trị INT (Giá trị này của server giúp chúng ta checkpadding). 
 - Chúng ta sẽ tăng bytes cuối cùng(bytes 16) của IV giả định lên cho đến khi server trả về mã lỗi 404 tức là bytes cuối cùng của P sẽ là 0x01
 - '0000000000000000000000000000009aa5936cfd61e8d5dc6b6b6d121d2a7124' tăng đến giá trị '9a' ta sẽ thu được mã lỗi 404.
