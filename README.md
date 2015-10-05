@@ -1,5 +1,5 @@
 # KMACTF_Crypto200_PaddingOracleAttack
-Bài crypto200 này làm team Gaara mình cực kì tiếc nuối luôn vì lẽ ra chắc chắn sẽ làm được cơ mà kiểu gửi data lên mà không có eception nên hơi khó để team mình tìm ra được cách send data chuẩn
+Bài crypto200 này làm team Gaara mình cực kì tiếc nuối luôn vì lẽ ra chắc chắn sẽ làm được cơ mà kiểu gửi data lên mà không có Exception nên hơi khó để team mình tìm ra được cách send data chuẩn
 Đây là một bài crypto có dạng PaddingOracleAttack. do anh Dương Ngọc Thái idol của chúng ta tìm ra
 các bạn có thể tìm hiểu thêm về cơ chế của nó ở đây.
 
